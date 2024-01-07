@@ -42,3 +42,11 @@ data['MonetaryScore'] = pd.cut(data['MonetaryValue'], bins=5, labels=monetary_sc
 data['RecencyScore'] = data['RecencyScore'].astype(int)
 data['FrequencyScore'] = data['FrequencyScore'].astype(int)
 data['MonetaryScore'] = data['MonetaryScore'].astype(int)
+
+
+# Calculate RFM score by combining the individual scores
+data['RFM_Score'] = data['RecencyScore'] + data['FrequencyScore'] + data['MonetaryScore']
+
+# Create RFM segments based on the RFM score
+segment_labels = ['Low-Value', 'Mid-Value', 'High-Value']
+data['Value Segment'] = pd.qcut(data['RFM_Score'], q=3, labels=segment_labels)
