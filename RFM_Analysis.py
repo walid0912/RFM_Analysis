@@ -21,6 +21,25 @@ frequency_data = data.groupby('CustomerID')['OrderID'].count().reset_index()
 frequency_data.rename(columns={'OrderID': 'Frequency'}, inplace=True)
 data = data.merge(frequency_data, on='CustomerID', how='left')
 
+
+# RFM Segment Distribution
+segment_counts = data['Value Segment'].value_counts().reset_index()
+segment_counts.columns = ['Value Segment', 'Count']
+
+pastel_colors = px.colors.qualitative.Pastel
+
+# Create the bar chart
+fig_segment_dist = px.bar(segment_counts, x='Value Segment', y='Count', 
+                          color='Value Segment', color_discrete_sequence=pastel_colors,
+                          title='RFM Value Segment Distribution')
+
+# Update the layout
+fig_segment_dist.update_layout(xaxis_title='RFM Value Segment',
+                              yaxis_title='Count',
+                              showlegend=False)
+
+# Show the figure
+fig_segment_dist.show()
 # Calculate Monetary Value
 monetary_data = data.groupby('CustomerID')['TransactionAmount'].sum().reset_index()
 monetary_data.rename(columns={'TransactionAmount': 'MonetaryValue'}, inplace=True)
