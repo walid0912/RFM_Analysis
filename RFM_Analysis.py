@@ -101,3 +101,18 @@ fig_treemap_segment_product = px.treemap(segment_product_counts,
                                          color='Value Segment', color_discrete_sequence=px.colors.qualitative.Pastel,
                                          title='RFM Customer Segments by Value')
 fig_treemap_segment_product.show()
+
+
+# Filter the data to include only the customers in the Champions segment
+champions_segment = data[data['RFM Customer Segments'] == 'Champions']
+
+fig = go.Figure()
+fig.add_trace(go.Box(y=champions_segment['RecencyScore'], name='Recency'))
+fig.add_trace(go.Box(y=champions_segment['FrequencyScore'], name='Frequency'))
+fig.add_trace(go.Box(y=champions_segment['MonetaryScore'], name='Monetary'))
+
+fig.update_layout(title='Distribution of RFM Values within Champions Segment',
+                  yaxis_title='RFM Value',
+                  showlegend=True)
+
+fig.show()
