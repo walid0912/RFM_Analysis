@@ -37,3 +37,8 @@ monetary_scores = [1, 2, 3, 4, 5]  # Higher score for higher monetary value
 data['RecencyScore'] = pd.cut(data['Recency'], bins=5, labels=recency_scores)
 data['FrequencyScore'] = pd.cut(data['Frequency'], bins=5, labels=frequency_scores)
 data['MonetaryScore'] = pd.cut(data['MonetaryValue'], bins=5, labels=monetary_scores)
+
+# Convert RFM scores to numeric type
+data['RecencyScore'] = data['RecencyScore'].astype(int)
+data['FrequencyScore'] = data['FrequencyScore'].astype(int)
+data['MonetaryScore'] = data['MonetaryScore'].astype(int)
