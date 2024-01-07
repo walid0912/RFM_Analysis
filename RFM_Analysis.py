@@ -26,4 +26,4 @@ monetary_data = data.groupby('CustomerID')['TransactionAmount'].sum().reset_inde
 monetary_data.rename(columns={'TransactionAmount': 'MonetaryValue'}, inplace=True)
 data = data.merge(monetary_data, on='CustomerID', how='left')
 
-
+print(data.head())
