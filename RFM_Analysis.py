@@ -27,3 +27,13 @@ monetary_data.rename(columns={'TransactionAmount': 'MonetaryValue'}, inplace=Tru
 data = data.merge(monetary_data, on='CustomerID', how='left')
 
 print(data.head())
+
+# Define scoring criteria for each RFM value
+recency_scores = [5, 4, 3, 2, 1]  # Higher score for lower recency (more recent)
+frequency_scores = [1, 2, 3, 4, 5]  # Higher score for higher frequency
+monetary_scores = [1, 2, 3, 4, 5]  # Higher score for higher monetary value
+
+# Calculate RFM scores
+data['RecencyScore'] = pd.cut(data['Recency'], bins=5, labels=recency_scores)
+data['FrequencyScore'] = pd.cut(data['Frequency'], bins=5, labels=frequency_scores)
+data['MonetaryScore'] = pd.cut(data['MonetaryValue'], bins=5, labels=monetary_scores)
