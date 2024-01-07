@@ -116,3 +116,18 @@ fig.update_layout(title='Distribution of RFM Values within Champions Segment',
                   showlegend=True)
 
 fig.show()
+
+
+correlation_matrix = champions_segment[['RecencyScore', 'FrequencyScore', 'MonetaryScore']].corr()
+
+# Visualize the correlation matrix using a heatmap
+fig_heatmap = go.Figure(data=go.Heatmap(
+                   z=correlation_matrix.values,
+                   x=correlation_matrix.columns,
+                   y=correlation_matrix.columns,
+                   colorscale='RdBu',
+                   colorbar=dict(title='Correlation')))
+
+fig_heatmap.update_layout(title='Correlation Matrix of RFM Values within Champions Segment')
+
+fig_heatmap.show()
