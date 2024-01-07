@@ -90,3 +90,14 @@ fig_segment_dist.update_layout(xaxis_title='RFM Value Segment',
 
 # Show the figure
 fig_segment_dist.show()
+
+segment_product_counts = data.groupby(['Value Segment', 'RFM Customer Segments']).size().reset_index(name='Count')
+
+segment_product_counts = segment_product_counts.sort_values('Count', ascending=False)
+
+fig_treemap_segment_product = px.treemap(segment_product_counts, 
+                                         path=['Value Segment', 'RFM Customer Segments'], 
+                                         values='Count',
+                                         color='Value Segment', color_discrete_sequence=px.colors.qualitative.Pastel,
+                                         title='RFM Customer Segments by Value')
+fig_treemap_segment_product.show()
