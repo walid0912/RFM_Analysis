@@ -157,3 +157,45 @@ fig.update_layout(title='Comparison of RFM Segments',
                   showlegend=False)
 
 fig.show()
+
+
+# Calculate the average Recency, Frequency, and Monetary scores for each segment
+segment_scores = data.groupby('RFM Customer Segments')['RecencyScore', 'FrequencyScore', 'MonetaryScore'].mean().reset_index()
+
+# Create a grouped bar chart to compare segment scores
+fig = go.Figure()
+
+# Add bars for Recency score
+fig.add_trace(go.Bar(
+    x=segment_scores['RFM Customer Segments'],
+    y=segment_scores['RecencyScore'],
+    name='Recency Score',
+    marker_color='rgb(158,202,225)'
+))
+
+# Add bars for Frequency score
+fig.add_trace(go.Bar(
+    x=segment_scores['RFM Customer Segments'],
+    y=segment_scores['FrequencyScore'],
+    name='Frequency Score',
+    marker_color='rgb(94,158,217)'
+))
+
+# Add bars for Monetary score
+fig.add_trace(go.Bar(
+    x=segment_scores['RFM Customer Segments'],
+    y=segment_scores['MonetaryScore'],
+    name='Monetary Score',
+    marker_color='rgb(32,102,148)'
+))
+
+# Update the layout
+fig.update_layout(
+    title='Comparison of RFM Segments based on Recency, Frequency, and Monetary Scores',
+    xaxis_title='RFM Segments',
+    yaxis_title='Score',
+    barmode='group',
+    showlegend=True
+)
+
+fig.show()
